@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>3D Model Görüntüleyici - Çesan Makina</title>
+<script src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js" type="module"></script>
+<style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #121212;
+            flex-direction: column;
+            color: #fff;
+        }
+        h1 {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        model-viewer {
+            width: 80%;
+            max-width: 800px;
+            height: 600px;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #1e1e1e;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: #333;
+        }
+
+        /* --- KORUMA KODLARI --- */
+        body {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        model-viewer {
+            -webkit-user-drag: none;
+        }
+    </style>
+<link href="../logo-img/İcon2.webp" rel="icon" type="image/png"/><link href="https://www.cesanmakina.com/vr/viewer" rel="canonical"/></head>
+<body>
+<a class="back-btn" href="javascript:void(0)" onclick="window.close()">← Geri Dön (Kapat)</a>
+<h1 id="modelTitle">3D Model</h1>
+<model-viewer alt="3D modeli" ar="" ar-modes="webxr scene-viewer quick-look" auto-rotate="" camera-controls="" id="mainViewer" shadow-intensity="1" touch-action="pan-y" vr-mode-ui="enabled">
+</model-viewer>
+<script>
+        // --- KORUMA KODLARI (Sağ Tık ve Kısayol Engelleme) ---
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j')) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u')) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'S' || e.key === 's')) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'P' || e.key === 'p')) { e.preventDefault(); return false; }
+        });
+        document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const modelFile = urlParams.get('model');
+            if(modelFile) {
+                document.getElementById('mainViewer').src = modelFile;
+                let titleName = modelFile.replace('.glb', '').replace(/-/g, ' ');
+                // Capitalize first letters
+                titleName = titleName.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                document.getElementById('modelTitle').textContent = titleName;
+            } else {
+                document.getElementById('modelTitle').textContent = "Model Bulunamadı";
+            }
+        });
+    </script>
+</body>
+</html>

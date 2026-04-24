@@ -2403,3 +2403,17 @@ body {
     color: #ffffff !important;
     transition: none !important;
 }
+
+/* --- KORUMA KODLARI --- */
+body {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+img, model-viewer {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
